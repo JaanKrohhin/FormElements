@@ -86,6 +86,7 @@
     <Content Include="Resources\coffee.ico" />
     <Content Include="Resources\earth.png" />
     <Content Include="Resources\flower.jpg" />
+    <Content Include="Resources\note.xml" />
     <Content Include="Resources\rb.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

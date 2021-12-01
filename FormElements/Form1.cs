@@ -33,6 +33,8 @@ namespace FormElements
         Label lbl3;
         TabPage tabpage3;
         Label lbl4;
+        ListBox list;
+        DataGridView dgrid;
         int t = 0;
         int t2 = 0;
 
@@ -40,7 +42,7 @@ namespace FormElements
         {
 
             this.Height = 500;
-            this.Width = 700;
+            this.Width = 750;
             this.Text = "4 Elements";
             this.BackColor = Color.LightCoral;
             this.ForeColor = Color.Black;
@@ -59,6 +61,9 @@ namespace FormElements
             tn.Nodes.Add(new TreeNode("TextBox"));
             tn.Nodes.Add(new TreeNode("TabControl"));
             tn.Nodes.Add(new TreeNode("MessageBox"));
+            tn.Nodes.Add(new TreeNode("ListBox"));
+            tn.Nodes.Add(new TreeNode("DataGridView"));
+            tn.Nodes.Add(new TreeNode("MainMenu"));
 
             butt = new Button();
             butt.Text = "Free candy, just click here";
@@ -151,12 +156,60 @@ namespace FormElements
             lbl4.MouseLeave += Lbl_MouseLeave;
             tabpage3.Controls.Add(lbl4);
 
+            list = new ListBox();
+            list.Items.Add("green");
+            list.Items.Add("red");
+            list.Items.Add("yellow");
+            list.Items.Add("orange");
+            list.Items.Add("violet");
+            list.Location = new Point(400, 25);
+            list.SelectedIndexChanged += List_SelectedIndexChanged;
+            list.Font= new Font("Arial", 12);
+
+            DataSet dset = new DataSet();
+            dset.ReadXml("../../Resources/note.xml");
+            dgrid =new DataGridView();
+            dgrid.Location = new Point(400, 70);
+            dgrid.DataSource = dset;
+            dgrid.DataMember = "note";
+            dgrid.AutoResizeColumns();
+            //dgrid.Width = 100;
+            //dgrid.Height = 100;
+
+
 
             tab.Controls.Add(tabpage);
             tab.Controls.Add(tabpage2);
             tab.Controls.Add(tabpage3);
             tree.Nodes.Add(tn);
             this.Controls.Add(tree);
+            tree.ExpandAll();
+        }
+
+        private void List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (list.SelectedIndex)
+            {
+                case 0:
+                    list.BackColor = Color.Green;
+                    break;
+                case 1:
+                    list.BackColor = Color.Red;
+                    break;
+                case 2:
+                    list.BackColor = Color.Yellow;
+                    break;
+                case 3:
+                    list.BackColor = Color.Orange;
+                    break;
+                case 4:
+                    list.BackColor = Color.Violet;
+                    break;
+                default:
+                    list.BackColor = Color.Transparent;
+                    break;
+            }
+
         }
 
         private void Rad_Click(object sender, EventArgs e)
@@ -190,12 +243,12 @@ namespace FormElements
             if (t2 == 1)
             {
                 t2 = 0;
-                this.Size = new Size(700, 500);
+                this.Size = new Size(750, 500);
             }
             else
             {
                 t2 += 1;
-                this.Size = new Size(900, 700);
+                this.Size = new Size(950, 700);
             }
         }
 
@@ -328,6 +381,39 @@ namespace FormElements
                     MessageBox.Show("Whew, I thought you might be some psycho", "Noice");
                 }
             }
+            else if (e.Node.Text == "ListBox")
+            {
+                this.Controls.Add(list);
+            }
+            else if (e.Node.Text == "DataGridView")
+            {
+                this.Controls.Add(dgrid);
+            }
+            else if (e.Node.Text == "MainMenu")
+            {
+                MainMenu menu = new MainMenu();
+                MenuItem mf = new MenuItem("File");
+                mf.MenuItems.Add("Exit", new EventHandler(menuFile_Select));
+                mf.MenuItems.Add("Image", new EventHandler(menuFile_Select2));
+                mf.MenuItems.Add("Windows", new EventHandler(menuFile_Select3));
+                menu.MenuItems.Add(mf);
+                this.Menu = menu;
+            }
+        }
+
+        private void menuFile_Select3(object sender, EventArgs e)
+        {
+            this.WindowState=FormWindowState.Maximized;
+        }
+
+        private void menuFile_Select2(object sender, EventArgs e)
+        {
+            pic.Image = Image.FromFile(@"../../Resources/coffee.ico");
+        }
+
+        private void menuFile_Select(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

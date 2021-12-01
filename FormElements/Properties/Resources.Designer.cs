@@ -101,6 +101,20 @@ namespace FormElements.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;note&gt;
+        ///  &lt;to&gt;Tove&lt;/to&gt;
+        ///  &lt;from&gt;Jani&lt;/from&gt;
+        ///  &lt;heading&gt;Reminder&lt;/heading&gt;
+        ///  &lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;
+        ///&lt;/note&gt;.
+        /// </summary>
+        internal static string note {
+            get {
+                return ResourceManager.GetString("note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon rb {
